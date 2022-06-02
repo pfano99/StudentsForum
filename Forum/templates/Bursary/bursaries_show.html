@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+{% block body %}
+
+    <div>
+        {% if bursaries %}
+            {% for bursary in bursaries %}
+                <ul>
+                    <li>
+
+                    Offered by: <a href="{{ url_for('Organization.organization_profile', id=bursary.organization.id) }}"> {{ bursary.organization.name }} </a> <br>
+                    <a href="{{ url_for('Bursary.infoBursary', id=bursary.id ) }}">  {{ bursary.bursary_name }} </a> <br>
+                    Open date {{ bursary.open_date.strftime('%d-%m-%-Y') }} <br>
+                    Closing date {{ bursary.closing_date.strftime('%d-%m-%-Y') }}
+                    </li>
+                    <br>
+                </ul>
+            {% endfor %}
+        {% endif %}
+
+    </div>
+
+
+    <div>
+        
+    </div>
+
+{% endblock body %}
+

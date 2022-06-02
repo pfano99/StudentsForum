@@ -1,0 +1,92 @@
+{% extends 'layout.html' %}
+
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+{% block body %}
+
+<div class='container'>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+            <div class="container-fluid">
+
+                <a class="navbar-brand" href="{{ url_for('main.index') }}"> Student Forum </a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item"> <a class="nav-link active" href="{{ url_for('Organization.organization_profile', id=current_user.id ) }}"> Profile </a> </li>
+                        <li class="nav-item"> <a class="nav-link" href="{{ url_for('Job.show_Jobs') }}"> Jobs </a> </li>
+                        <li class="nav-item"> <a class="nav-link" href="{{ url_for('Bursary.showBursary') }}"> Bursary </a> </li>
+                        <li class="nav-item"> <a class="nav-link" href="{{ url_for('Organization.organization_account', id=current_user.id) }}"> Account </a> </li>
+                    </ul>
+                    <ul class="navbar-nav justify-content-end">  
+                        <li class="nav-item"> <a class="nav-link" href="{{ url_for('Organization.organization_logout') }}"> Logout </a> </li>
+                    </ul>
+                </div>
+            </div>
+
+        </nav>
+    
+</div>
+
+<div class='container'>
+    <br> <hr>
+
+    <h3> {{ user.name }} </h3> <br>
+     Email {{ user.email }}  <br>
+     Telephone {{ user.telephone }}  <br>
+     Website <a href="{{ user.website }}"> {{ user.website }} </a>  <br>
+     Location {{ user.location }} <br>
+     About {{ user.about }} <br>
+
+     <br>
+     Total Jobs Posted {{ user.total_jobs_count() }} <br>
+     Total Bursaries Posted {{ user.total_bursaries_count() }} <br>
+     Total Residence Posted {{ user.total_residences_count() }}
+
+</div>
+
+<div>
+    <br> <hr>
+    <h3> Bursaries Posted </h3>
+
+    {% if bursaries %}
+        <ul>
+            {% for bursary in bursaries %}
+                <li> {{ bursary.bursary_name }} </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        No Bursary Posted yet
+    {%  endif%}
+    
+</div>
+
+<div>
+    <br> <hr>
+    <h3> Jobs Posted </h3>
+
+    {% if jobs %}
+        <ul>
+            {% for job in jobs %}
+                <li> {{ job.job_title }} </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        No Job Posted Posted yet
+    {%  endif%}
+    
+</div>
+
+
+
+
+{% endblock body %}
+

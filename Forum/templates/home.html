@@ -1,0 +1,113 @@
+
+
+
+
+
+{% extends 'layout.html' %}
+
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+{% block body %}
+    <div class='container'>
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+            <div class="container-fluid">
+
+                <a class="navbar-brand" href="{{ url_for('main.home') }}"> Student Forum </a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                        <li class="nav-item"> <a class="nav-link" href="{{ url_for('posts.create_post') }}"> Post </a> </li>
+                        <li class="nav-item"> <a class="nav-link" href="{{ url_for('Friends.meet_friends') }}"> Meet a Friend </a> </li>
+                        <li class="nav-item"> <a class="nav-link" href="{{ url_for('market.market_place') }}"> Market </a> </li>
+                        <br class="nav-item">
+                        <li class="nav-item"> <a class="nav-link" href="{{ url_for('market.sell') }}"> Sell </a> </li>
+                        <li class="nav-item"> <a class="nav-link" href="{{ url_for('Bursary.showBursary') }}"> Bursaries </a> </li>
+                        <li class="nav-item"> <a class="nav-link" href="{{ url_for('users.account')}}"> Account </a> </li>
+                        <li class="nav-item"> <a class="nav-link" href="{{ url_for('users.logout') }}"> logout </a> </li>
+                        <li class="nav-item"> <a class="nav-link" href="#"> Connect </a> </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Dropdown
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                              <a class="dropdown-item" href="#">Action</a>
+                              <a class="dropdown-item" href="#">Another action</a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                        </li>
+
+                    </ul>
+                    
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+
+    <br> <hr>
+
+    <div class='container'>
+        {% for post in posts %}
+            <div class="card">
+                <div class="card-header bg-transparent text-dark">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="mr-2">
+                                <!-- showing post author profile image small and rounded -->
+                                <img class="rounded-circle" width="45" src="{{ url_for('static', filename='profile_pictures/' + post.author.profile_picture ) }}" alt="">
+                            </div>
+                            <div class="ml-2">
+                                <!-- showing post author user name -->
+                                <div class="h5 m-0"> <a href="{{ url_for('users.user_profile', user_id = post.author.id) }}" > {{ post.author.first_name }} </a> </div>
+                                <!-- showing the created date of the post   -->
+                                <div class="h7 text-muted"> {{ post.date_created.strftime('%b-%d-%Y') }} </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    {% if post.picture %}
+                    <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                        <!-- showing post images and converting post name to string to avoid error while concatinating -->
+                        <img src="{{ url_for('static', filename='post_pictures/' + post.picture|string ) }}" class="img-fluid" />
+                        <a href="#!">
+                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
+                        </a>
+                    </div>
+                    {% endif %}
+    
+                    <a class="card-link" href="{{ url_for('posts.post', post_id=post.post_id) }}">
+                        <h5 class="card-title"> {{ post.title }} </h5>
+                    </a>
+    
+                    <p class="card-text">
+                        {{ post.content }}
+                    </p>
+                    <hr>
+                    <a href="{{ url_for('posts.post', post_id=post.post_id) }}" class="btn btn-outline-primary"><i class="fa fa-comment"></i> Comment</a>
+                </div>
+            </div>
+            <br>
+        {% endfor %}
+    </div>
+
+{% endblock body %}
+

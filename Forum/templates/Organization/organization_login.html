@@ -1,0 +1,82 @@
+{% extends 'layout.html' %}
+
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+{% block body %}
+
+    <div class='container'>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+                <div class="container-fluid">
+
+                    <a class="navbar-brand" href="{{ url_for('main.home') }}"> Student Forum </a>
+                    
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item"> <a class="nav-link" href="{{ url_for('Organization.organization_registeration') }}"> Register </a> </li>
+                            <li class="nav-item"> <a class="nav-link active" href="{{ url_for('Organization.organization_login') }}"> Login </a> </li>
+                            <li class="nav-item"> <a class="nav-link" href="#"> About </a> </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </nav>
+        
+    </div>
+
+
+    <div>
+
+        <br>
+            <h3> Organization Login </h3>
+        <br>
+
+    </div>
+
+
+    <div class='container'> 
+        <form action="" method='POST'>
+
+            {{ form.hidden_tag() }}
+
+
+            {{ form.email.label(class="form-label") }}
+            {{ form.email(class="form-control") }} <br>
+
+            {% if form.email.errors %}
+                {% for error in form.email.errors %}
+                    <span> {{ error }} </span> <br>
+                {% endfor %}
+            {% endif %}
+            
+            {{ form.password.label(class="form-label") }}
+            {{ form.password(class="form-control") }} <br>
+
+            {% if form.password.errors %}
+                {% for error in form.password.errors %}
+                    <span> {{ error }} </span> <br>
+                {% endfor %}
+            {% endif %}
+
+            
+
+            <div class="form-check">
+                {{ form.remember_me.label(class="form-check-label") }}
+                {{ form.remember_me(class="form-check-input") }}
+            </div>
+
+            <br>
+            
+            {{ form.submit(class="btn btn-outline-primary") }} <br>
+        </form>
+    </div>
+
+{% endblock body %}

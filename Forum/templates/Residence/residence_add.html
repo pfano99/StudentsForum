@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+{% block body %}
+
+    
+    <div class="mb-3">
+        <form action="" method="POST" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+
+            {{ form.name.label(class="form-label") }}
+            {{ form.name(class="form-control") }} <br>
+
+            {{ form.location.label(class="form-label") }}
+            {{ form.location(class="form-control") }} <br>
+
+            {{ form.room_type.label(class="form-label") }}
+            {{ form.room_type(class="form-control") }} <br>
+
+            {{ form.price.label(class="form-label") }}
+            {{ form.price(class="form-control") }} <br>
+
+            {{ form.description.label(class="form-label") }}
+            {{ form.description(class="form-control") }} <br>
+
+            {{ form.rules.label(class="form-label") }}
+            {{ form.rules(class="form-control") }} <br>
+
+            {{ form.entertainment.label(class="form-label") }}
+            {{ form.entertainment(class="form-control") }} <br>
+
+            {{ form.safety_and_sec.label(class="form-label") }}
+            {{ form.safety_and_sec(class="form-control") }} <br>
+
+            {{ form.submit(class="btn btn-outline-primary") }} <br>
+
+        </form>
+    </div>
+    
+
+{% endblock body %}
+

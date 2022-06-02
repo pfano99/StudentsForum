@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+{% block body %}
+
+    <div>
+        {% if accomodation %}
+        <ul>
+            {% for res in accomodation %}
+                <li>
+                    Name {{ res.name }} <br>
+                    Location {{ res.location }} <br>
+                    Room Type{{ res.room_type }} <br>
+                    Price {{ res.price }} <br>
+                </li>
+            {% endfor %}
+        </ul>
+
+        {% endif %}
+    </div>
+
+{% endblock body %}
+

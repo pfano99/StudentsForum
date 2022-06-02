@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+{% block body %}
+
+    <div>
+        {% if jobs %}
+        
+            {% for job in jobs %}
+                <ul>
+                Offred by <a href="{{ url_for('Organization.organization_profile', id=job.id) }}"> {{ job.organization.name }} </a> <br>
+                <a href="{{ url_for('Job.job_info', id = job.id) }}"> {{ job.job_title }} </a> <br>
+                {{ job.job_type }} <br>
+                {{ job.city }} <br>
+                Open date {{ job.open_date.strftime('%b-%d-%Y') }} <br>
+                Closing date {{ job.closing_date.strftime('%b-%d-%Y') }}
+                </ul>
+                <br>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+{% endblock body %}
+

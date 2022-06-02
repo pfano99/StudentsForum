@@ -1,0 +1,130 @@
+{% extends 'layout.html' %}
+
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+{% block body %}
+
+    <div class='container'>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+                <div class="container-fluid">
+
+                    <a class="navbar-brand" href="{{ url_for('main.home') }}"> Student Forum </a>
+                    
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                        {% if current_user.is_authenticated %}
+
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                                <li class="nav-item"> <a class="nav-link active" href="{{ url_for('users.account')}}"> Account </a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="{{ url_for('posts.create_post') }}"> create new post </a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="{{ url_for('users.logout') }}"> logout </a> </li>
+                                <br class="nav-item">
+                                <li class="nav-item"> <a class="nav-link" href="{{ url_for('market.market_place') }}"> Market </a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="{{ url_for('market.sell') }}"> Sell </a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="{{ url_for('Bursary.showBursary') }}"> Bursaries </a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="{{ url_for('Friends.meet_friends') }}"> Meet a Friend </a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="#"> Connect </a> </li>
+
+                            </ul>
+                        {% endif %}
+
+                    </div>
+                </div>
+
+            </nav>
+        
+    </div>
+
+    <div class="container">
+        
+        <!-- <img src="{{ url_for('static', filename='profile_pictures/' + current_user.profile_picture|string ) }} ">
+        <br>
+        <h1> {{ current_user.first_name }} </h1>
+
+        {% if current_user.last_name %}
+             {{ current_user.last_name }} 
+            <br>
+        {% endif %}
+             {{ current_user.email }} 
+        <br>
+
+        <p> Following {{ current_user.followed.count() }} </p>
+        <p> Followers {{ current_user.followers.count() }} </p> -->
+    </div>
+
+
+    <div class="card mb-3 bg-light mb-3" style="max-width: 800px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <!-- <img src="..." alt="..."> -->
+            <a href="{{ url_for('users.user_profile', user_id = current_user.id) }}">
+                <img class="rounded" height=250px width=250px src="{{ url_for('static', filename = 'profile_pictures/' + current_user.profile_picture) }}"> 
+            </a>
+          </div>
+          
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title"><a href="{{ url_for('users.user_profile', user_id = current_user.id) }}"> {{ current_user.first_name }} </a> </h5>
+              
+              <p class="card-text">Last name: {{ current_user.last_name }}</p>
+              <p class="card-text">Email: {{ current_user.email }}</p>
+              <p class="card-text">About me: {{ current_user.about_me }}</p>
+              <p class="card-text">School: {{ current_user.school }}</p>
+              <p class="card-text">Course: {{ current_user.course }} </p>
+              <p class="card-text">Joined on: {{ current_user.joindate.strftime('%b-%d-%Y') }}</p>
+              <p class="card-text">Followers: {{ current_user.followed.count() }}</p>
+              <p class="card-text">Following: {{ current_user.followers.count() }} </p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    <br><hr>
+    <div class='container'>
+        
+
+        <form action="" method="POST" enctype="multipart/form-data" >
+            
+            {{ form.hidden_tag() }}
+
+            {{ form.first_name.label(class="form-label") }}
+            {{ form.first_name(class="form-control") }} <br>
+
+            {{ form.last_name.label(class="form-label") }}
+            {{ form.last_name(class="form-control") }} <br>
+
+            {{ form.email.label(class="form-label") }}
+            {{ form.email(class="form-control") }} <br>
+            
+            {{ form.school.label(class="form-label") }}
+            {{ form.school(class="form-control") }} <br>
+
+            {{ form.course.label(class="form-label") }}
+            {{ form.course(class="form-control") }} <br>
+            
+            {{ form.about_me.label(class="form-label") }}
+            {{ form.about_me(class="form-control") }} <br>
+
+
+            {{ form.profile_picture.label(class="form-label") }}
+            {{ form.profile_picture(class="form-control") }} <br>
+
+            {{ form.submit(class="btn btn-outline-primary")  }}
+        </form>
+    </div>
+
+{% endblock body %}
+

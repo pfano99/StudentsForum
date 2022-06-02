@@ -1,0 +1,66 @@
+{% extends 'layout.html' %}
+
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+{% block body %}
+
+    <div>
+        <h1>The product</h1>
+        <li>
+            <ul> <a href="{{ url_for('main.home') }}"> Home </a> </ul>
+            <ul> <a href="{{ url_for('users.account') }}"> Account </a> </ul>
+            <ul> <a href="{{ url_for('market.market_place') }}"> Market </a> </ul>
+        </li>        
+        
+    </div>
+
+    <hr><br>
+
+    <div>
+        <li>
+            {% if product.image != 'default.jpeg' and product.image%}
+                <ul>
+                    <img src="{{ url_for('static', filename='product_pictures/' + product.image) }}">
+                </ul>
+            {% endif %}
+            <ul> Seller: <a href="{{ url_for('users.user_profile', user_id = product.seller.id) }}">  {{ product.seller.first_name }} </a>  </ul>
+            <ul> Product name: {{ product.product_name }} </ul>
+            <ul> Category: {{ product.category }} </ul>
+            <ul> Condition: {{ product.condition }} </ul>
+            <ul> Price: R{{ product.price }} </ul>
+            <ul> Description: {{ product.description }} </ul>
+        </li>
+    </div>
+
+    <hr><br>
+
+    <div>
+        <strong> Comments </strong> <br>
+        {% for comment in comments %}
+            <li>
+                <ul> By: <a href="{{ url_for('users.user_profile', user_id = product.seller.id) }}"> {{ comment.author.first_name }} </a> </ul>
+                <ul> <small> {{ comment.date_created.strftime('%Y-%m-%d') }} </small> </ul>
+                <ul> {{ comment.content }} </ul>
+            </li>
+            <br>
+        {% endfor %}
+
+    </div>
+
+    <hr><br>
+
+    <div>
+        <form action="" method="POST">
+            {{ form.hidden_tag() }}
+            comment <br>
+            {{ form.content }} <br>
+            {{ form.submit }}
+        </form>
+    </div>
+
+{% endblock body %}
+
+

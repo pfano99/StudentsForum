@@ -1,0 +1,93 @@
+{% extends 'layout.html' %}
+
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+{% block body %} 
+
+
+
+    <div>
+        <h3> Bursary Information </h3>
+    </div>
+
+    <div class='container'>
+        <div class="mb-3">
+            <form action="" method="POST" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                
+                
+
+                {{ form.bursary_name.label(class="form-label") }}
+                {{ form.bursary_name(class="form-control") }} <br>
+
+                {% if form.bursary_name.errors %}
+                    {% for error in form.bursary_name.errors %}
+                        <span> {{ error }} </span> <br>
+                    {% endfor %}
+                {% endif %}
+
+                {{ form.opening_date.label(class="form-label") }}
+                {{ form.opening_date(class="form-control") }} <br>
+
+                {% if form.opening_date.errors %}
+                    {% for error in form.opening_date.errors %}
+                        <span> {{ error }} </span> <br>
+                    {% endfor %}
+                {% endif %}
+
+                {{ form.closing_date.label(class="form-label") }}
+                {{ form.closing_date(class="form-control") }} <br>
+
+                {% if form.closing_date.errors %}
+                    {% for error in form.closing_date.errors %}
+                        <span> {{ error }} </span> <br>
+                    {% endfor %}
+                {% endif %}
+
+                {{ form.requirements.label(class="form-label") }}
+                {{ form.requirements(class="form-control")}} <br>
+
+                {% if form.requirements.errors %}
+                    {% for error in form.requirements.errors %}
+                        <span> {{ error }} </span> <br>
+                    {% endfor %}
+                {% endif %}
+
+                {{ form.how_to_apply.label(class="form-label") }}
+                {{ form.how_to_apply(class="form-control") }} <br>
+
+                {% if form.how_to_apply.errors %}
+                    {% for error in form.how_to_apply.errors %}
+                        <span> {{ error }} </span> <br>
+                    {% endfor %}
+                {% endif %}
+
+                {{ form.document.label(class="form-label") }}
+                {{ form.document(class="form-control") }} <br>
+
+                {% if form.document.errors %}
+                    {% for error in form.document.errors %}
+                        <span> {{ error }} </span> <br>
+                    {% endfor %}
+                {% endif %}
+
+                {{ form.web_link.label(class="form-label") }}
+                {{ form.web_link(class="form-control")}} <br>
+
+                {% if form.web_link.errors %}
+                    {% for error in form.web_link.errors %}
+                        <span> {{ error }} </span> <br>
+                    {% endfor %}
+                {% endif %}
+
+                {{ form.submit(class="btn btn-outline-primary") }} 
+                
+            </form>
+        </div>
+    </div>
+
+{% endblock body %}
+

@@ -1,0 +1,113 @@
+{% extends 'layout.html' %}
+
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+{% block body %}
+
+    <div class='container'>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+                <div class="container-fluid">
+
+                    <a class="navbar-brand" href="{{ url_for('main.home') }}"> Student Forum </a>
+                    
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                        {% if current_user.is_authenticated %}
+
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                                <li class="nav-item"> <a class="nav-link" href="{{ url_for('users.account')}}"> Account </a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="{{ url_for('posts.create_post') }}"> create new post </a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="{{ url_for('users.logout') }}"> logout </a> </li>
+                                <br class="nav-item">
+                                <li class="nav-item"> <a class="nav-link" href="{{ url_for('market.market_place') }}"> Market </a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="{{ url_for('market.sell') }}"> Sell </a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="{{ url_for('Bursary.showBursary') }}"> Bursaries </a> </li>
+                                <li class="nav-item"> <a class="nav-link active" href="{{ url_for('Friends.meet_friends') }}"> Meet a Friend </a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="#"> Connect </a> </li>
+
+                            </ul>
+                        {% else %}
+                            <ul>
+                                <li> <a href="{{ url_for('users.register') }}"> Register </a> </li>
+                                <li> <a href="{{ url_for('users.login') }}"> Login </a> </li>
+                                <li> <a href="#"> About </a> </li>
+                            </ul>
+                        {% endif %}
+
+                    </div>
+                </div>
+
+            </nav>
+        
+    </div>
+
+
+
+
+    <div>
+        <h1> Meet a Friend </h1>
+        <br>
+        <hr>
+    </div>
+
+    <div>
+         {% for friend in friends %}
+            {% if ( not current_user.is_following(friend) and friend != current_user ) %}
+            <div class="card mb-3 bg-light mb-3" style="max-width: 800px;">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <!-- <img src="..." alt="..."> -->
+                    <a href="{{ url_for('users.user_profile', user_id = friend.id) }}">
+                        <img class="rounded" height=250px width=250px src="{{ url_for('static', filename = 'profile_pictures/' + friend.profile_picture) }}"> 
+                    </a>
+                  </div>
+                  
+                  <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="{{ url_for('users.user_profile', user_id = friend.id) }}"> {{ friend.first_name }} </a> </h5>
+                        <p class="card-text">About me: {{ friend.about }}</p>
+                        <p class="card-text">School: {{ friend.school }}</p>
+                        <p class="card-text">Course: {{ friend.course }} </p>
+                        <p class="card-text">Joined on: {{ friend.joindate.strftime('%b-%d-%Y') }}</p>
+                        {% if current_user.is_following(friend) %}
+                            <!-- <p class="btn btn-outline-primary"><a class="btn btn-outline-danger" href="{{ url_for('users.unFollow', user_id = friend.id) }}">Unfollow </a> </p> -->
+                        {% else %}
+                            <p class="btn btn-outline-primary"><a href="{{ url_for('users.follow', user_id = friend.id) }}">Follow </a> </p>
+                        {% endif %}
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <br>
+            {% endif %}
+         {% endfor %}
+    </div>
+
+
+{% endblock body %}
+
+
+
+
+
+
+
+
+
+
+
+
+

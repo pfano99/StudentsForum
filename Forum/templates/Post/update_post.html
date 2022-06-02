@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+{% block body %}
+
+    <div>
+        <h1>Update post</h1>
+        <strong> <a href="{{ url_for('users.user_profile', user_id = post.author.id) }}"> {{ post.author.first_name }} </a> </strong>
+        <hr>
+
+    </div>
+
+    <div>
+        <form action="" method="" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+
+            {{ form.title.label }}
+            {{ form.title }} <br>
+            {{ form.content.label }}
+            {{ form.content }} <br>
+            {{ form.image.label }}
+            {{ form.image }} <br>
+            {{ form.submit }} <br>
+        </form>
+    </div>
+
+{% endblock body %}
+

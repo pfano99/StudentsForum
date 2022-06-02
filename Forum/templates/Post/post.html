@@ -1,0 +1,106 @@
+{% extends 'layout.html' %}
+
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+{% block body %}
+
+    <div class='container'>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+                <div class="container-fluid">
+
+                    <a class="navbar-brand" href="{{ url_for('main.home') }}"> Student Forum </a>
+                    
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                        {% if current_user.is_authenticated %}
+
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                                <li class="nav-item"> <a class="nav-link" href="{{ url_for('users.account')}}"> Account </a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="{{ url_for('posts.create_post') }}"> create new post </a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="{{ url_for('users.logout') }}"> logout </a> </li>
+                                <br class="nav-item">
+                                <li class="nav-item"> <a class="nav-link" href="{{ url_for('market.market_place') }}"> Market </a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="{{ url_for('market.sell') }}"> Sell </a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="{{ url_for('Bursary.showBursary') }}"> Bursaries </a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="{{ url_for('Friends.meet_friends') }}"> Meet a Friend </a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="#"> Connect </a> </li>
+
+                            </ul>
+                        {% else %}
+                            <ul>
+                                <li> <a href="{{ url_for('users.register') }}"> Register </a> </li>
+                                <li> <a href="{{ url_for('users.login') }}"> Login </a> </li>
+                                <li> <a href="#"> About </a> </li>
+                            </ul>
+                        {% endif %}
+
+                    </div>
+                </div>
+
+            </nav>
+        
+    </div>
+
+
+    <div class="container" >
+        <br>
+        post by: <strong> {{ post.author.first_name }} </strong>  <br>
+        <small> date: {{ post.date_created.strftime('%Y-%m-%d') }} </small>  <br><br>
+        <strong> {{ post.title }} </strong>  <br> 
+        {{ post.content }} <br>
+        {% if post.picture %}
+            <img src="{{ url_for('static', filename = 'post_pictures/' + post.picture|string) }}"> 
+        {% endif %}
+        <br><hr>
+    </div>
+
+    <div class="container">
+
+        <strong> Add comment </strong>
+        <br>
+
+        <!-- allowing user to add comment to the current post -->
+        <form action="" method="POST">
+            {{ form.hidden_tag() }}
+
+            {{ form.content(class="form-control") }}<br>
+            {{ form.submit(class="btn btn-outline-primary")  }}
+
+        </form>
+    </div>
+
+    <div class="container">
+        <!-- showing all the comments in that post -->
+        <hr>
+        <strong>comments</strong>
+        <br>
+
+        {% if comments %}
+            <ul>
+                {% for comment in comments %}
+                    <ul>    
+                        <ul>
+                            <li> Comment By: {{ comment.author.first_name }} </li> 
+                            <li>  posted on: {{ comment.date_created }} </li> 
+                            <li> {{ comment.content }} </li> 
+                        </ul>
+                    </ul>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <strong> there's no comment </strong>
+        {% endif %}
+    </div>
+{% endblock body %}
+

@@ -1,0 +1,64 @@
+{% extends 'layout.html' %}
+
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+{% block body %}
+
+    <div>
+        <h3> Job Upload </h3>
+    </div>
+
+
+
+    <form action="" method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+
+        {{ form.job_title.label(class="form-label") }}
+        {{ form.job_title(class="form-control") }} <br>
+
+
+        {{ form.open_date.label(class="form-label") }}
+        {{ form.open_date(class="form-control") }} <br>
+
+
+        {{ form.closing_date.label(class="form-label") }}
+        {{ form.closing_date(class="form-control") }} <br>
+
+
+        {{ form.job_type.label(class="form-label") }}
+        {{ form.job_type(class="form-select") }} <br>
+
+
+        {{ form.requirements.label(class="form-label") }}
+        {{ form.requirements(class="form-control") }} <br>
+
+        
+        {{ form.job_description.label(class="form-label") }}
+        {{ form.job_description(class="form-control") }} <br>
+
+
+        {{ form.salary.label(class="form-label") }}
+        {{ form.salary(class="form-control") }} <br>
+
+
+        {{ form.job_link.label(class="form-label") }}
+        {{ form.job_link(class="form-control") }} <br>
+
+
+        {{ form.province.label(class="form-label") }}
+        {{ form.province(class="form-select") }} <br>
+
+
+        {{ form.city.label(class="form-label") }}
+        {{ form.city(class="form-control") }} <br>
+
+        {{ form.submit(class="btn btn-outline-primary") }} <br>
+
+
+    </form>
+
+{% endblock body %}
+
